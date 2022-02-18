@@ -5,6 +5,7 @@ export const getOptions = (args = "") => {
   const [input, arg] = args.split(" ");
   const number = arg && /^\d+$/.test(arg) ? parseInt(arg, 10) : undefined;
   const randomMinMaxArg = arg && /^\d+-\d+$/.test(arg) ? arg : undefined;
+
   const [minDateStr, maxDateStr] =
     arg &&
     /^(\d{4})?(\/\d{2})?(\/\d{2})?(-)?(\d{4})?(\/\d{2})?(\/\d{2})?$/.test(arg)
@@ -43,6 +44,10 @@ export const getOptions = (args = "") => {
   const loremWorlds = random.lipsumWorlds(number);
   const loremSentences = random.lipsumSentences(number);
   const loremParagraphs = random.lipsumParagraphs(number);
+  const picsum = random.randomPicsum(randomMinMaxArg, {
+    blur: 0,
+    grayscale: false,
+  });
 
   const options = [
     { title: "Address", value: address },
@@ -69,7 +74,11 @@ export const getOptions = (args = "") => {
     { title: "First Name", value: firstName },
     { title: "Last Name", value: lastName },
     { title: "Letters (length)", value: letters, autocomplete: "letters " },
-    { title: "Letters And Numbers (length)", value: lettersAndNumbers, autocomplete: "letters " },
+    {
+      title: "Letters And Numbers (length)",
+      value: lettersAndNumbers,
+      autocomplete: "letters ",
+    },
     { title: "Lorem Worlds", value: loremWorlds, autocomplete: "lorem " },
     { title: "Lorem Sentences", value: loremSentences, autocomplete: "lorem " },
     {
@@ -81,6 +90,7 @@ export const getOptions = (args = "") => {
     { title: "Street", value: street },
     { title: "Url", value: url },
     { title: "guid", value: guid },
+    { title: "image", value: picsum, autocomplete: "image " },
   ];
 
   const items = options
@@ -92,8 +102,7 @@ export const getOptions = (args = "") => {
     )
     .map((x) => ({
       title: x.title,
-    //   subtitle: `${x.subtitle || ""} ,alue: "${x.value}"`,
-      subtitle: [x.subtitle, `Value: ${x.value}`].filter(x => !!x).join(' '),
+      subtitle: [x.subtitle, `Value: ${x.value}`].filter((x) => !!x).join(" "),
       arg: x.value,
       autocomplete: x.autocomplete || x.title,
     }));

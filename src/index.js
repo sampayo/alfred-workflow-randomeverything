@@ -15,21 +15,22 @@ const _randomIntString = (min, max) => {
 
 const insertRandomInt = (minMax = "0-100") => {
   const [minS, maxS] = minMax.split("-");
-  const min = Number.parseInt(minS);
-  const max = Number.parseInt(maxS);
+  const min = minS && minS.length > 0 ? Number.parseInt(minS) : 0;
+  const max = maxS && maxS.length > 0 ? Number.parseInt(maxS) : 100;
 
-  if (isNaN(min) || isNaN(max)) throw new Error("Invalid format.");
-
-  return _randomIntString(min, max);
+  return _randomIntString(min, min >= max ? min + 1 : max);
 };
 
 const randomFloatString = (minMax) => {
   const [minS, maxS] = minMax ? minMax.split("-") : [];
-  const min = minS ? Number.parseInt(minS) : 0;
-  const max = maxS ? Number.parseInt(maxS) : 1;
+  const min = minS && minS.length > 0 ? Number.parseInt(minS) : 0;
+  const max = maxS && maxS.length > 0 ? Number.parseInt(maxS) : 1;
 
   const chance = Chance();
-  const randomVar = chance.floating({ min: min, max: max });
+  const randomVar = chance.floating({
+    min: min,
+    max: min >= max ? min + 1 : max,
+  });
 
   return randomVar.toString();
 };
@@ -212,6 +213,24 @@ const lipsumParagraphs = (amount = 1) => {
   return lorem.generateParagraphs(amount);
 };
 
+const randomPicsum = (widthHeight, options) => {
+  const [minS, maxS] = widthHeight ? widthHeight.split("-") : [];
+  const min = minS && minS.length > 0 ? Number.parseInt(minS) : 200;
+  const max = maxS && maxS.length > 0 ? Number.parseInt(maxS) : 200;
+
+  const { blur, type, grayscale } = options || {};
+
+  let queryString = [blur && `blur=${blur}`, grayscale && "grayscale"]
+    .filter((x) => !!x)
+    .join("&");
+  queryString = queryString.length > 0 ? `?${queryString}` : "";
+
+  const ext = type ? `.${type}` : "";
+  const seed = randomLettersAndNumbers(7);
+
+  return `https://picsum.photos/seed/${seed}/${min}/${max}${ext}${queryString}`;
+};
+
 export default {
   randomGUID,
   randomIP,
@@ -232,4 +251,5 @@ export default {
   lipsumWorlds,
   lipsumSentences,
   lipsumParagraphs,
+  randomPicsum,
 };

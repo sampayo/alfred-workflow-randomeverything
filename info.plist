@@ -120,9 +120,9 @@
 				<key>removeextension</key>
 				<false/>
 				<key>text</key>
-				<string></string>
+				<string>"{query}"</string>
 				<key>title</key>
-				<string></string>
+				<string>Random value generated</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
@@ -146,16 +146,16 @@
 		<key>63F819A3-4EE8-49A6-B191-78A111371D26</key>
 		<dict>
 			<key>xpos</key>
-			<integer>495</integer>
+			<integer>500</integer>
 			<key>ypos</key>
 			<integer>265</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>120</integer>
+			<integer>140</integer>
 			<key>ypos</key>
-			<integer>85</integer>
+			<integer>160</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>

@@ -8,7 +8,9 @@ This is inspired by [Random Everything for VS Code.](https://github.com/helixqua
 
 ![Demo font test](images/demo.gif)
 
-## Type "random":
+## Options:
+
+Type "random (option)":
 
 - `address`: A random address (e.g. 1750 Nugku Place)
 - `city`: A random city (e.g. Ejgekad)
@@ -32,3 +34,4 @@ This is inspired by [Random Everything for VS Code.](https://github.com/helixqua
 - `street`: A random street (e.g. Aniiv Way)
 - `url`: A random url (e.g http://git.ve/poh)
 - `guid`: A random guid (e.g 924719d1-8ba1-5cbc-8513-cc7d3c2031ee)
+- `image` (width-height): A random image from [https://picsum.photos](https://picsum.photos) (e.g https://picsum.photos/seed/ebGjjAe/320/100)
