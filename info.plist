@@ -20,16 +20,6 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>63F819A3-4EE8-49A6-B191-78A111371D26</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 		</array>
 		<key>C6D1835A-D763-47DB-8C7B-BEEC6FEA55CA</key>
 		<array>
@@ -128,27 +118,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>"{query}"</string>
-				<key>title</key>
-				<string>Random value generated</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>63F819A3-4EE8-49A6-B191-78A111371D26</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -226,37 +195,30 @@
 		<key>5953867F-0D8A-43C8-B1B7-0D1ADFB70F76</key>
 		<dict>
 			<key>xpos</key>
-			<integer>495</integer>
+			<integer>595</integer>
 			<key>ypos</key>
-			<integer>30</integer>
-		</dict>
-		<key>63F819A3-4EE8-49A6-B191-78A111371D26</key>
-		<dict>
-			<key>xpos</key>
-			<integer>500</integer>
-			<key>ypos</key>
-			<integer>145</integer>
+			<integer>20</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>120</integer>
+			<integer>110</integer>
 			<key>ypos</key>
-			<integer>80</integer>
+			<integer>25</integer>
 		</dict>
 		<key>C6D1835A-D763-47DB-8C7B-BEEC6FEA55CA</key>
 		<dict>
 			<key>xpos</key>
-			<integer>130</integer>
+			<integer>120</integer>
 			<key>ypos</key>
-			<integer>320</integer>
+			<integer>165</integer>
 		</dict>
 		<key>E0719D98-050F-4995-977D-9A50B8BF6DAF</key>
 		<dict>
 			<key>xpos</key>
-			<integer>335</integer>
+			<integer>355</integer>
 			<key>ypos</key>
-			<integer>320</integer>
+			<integer>165</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
