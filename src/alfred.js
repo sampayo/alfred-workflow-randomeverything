@@ -1,32 +1,37 @@
 import alfy from "alfy";
 import random from "./index.js";
 import constants from "./constants.js";
+import { getDates, isValidDate } from "./utils.js";
 
-const { config: CONFIG } = constants;
+const { config: CONFIG, regex: REGEX } = constants;
 
-const valueToInt = (v) => (v && /^\d+$/.test(v) ? parseInt(v, 10) : undefined);
-const valueToMaxMin = (v) => (v && /^\d+-\d+$/.test(v) ? v : undefined);
+const valueToInt = (v) =>
+  v && REGEX.intRegex.test(v) ? parseInt(v) : undefined;
+const valueToMaxMin = (v) => (v && REGEX.minMaxRegex.test(v) ? v : undefined);
 
 export const getOptions = (args = "", opts) => {
   const [input, arg] = args.split(" ");
-  const number = valueToInt(args);
+  const number = valueToInt(arg);
   const randomMinMaxArg = valueToMaxMin(arg);
+  const [minDate, maxDate] = getDates(arg);
 
-  const [minDateStr, maxDateStr] =
-    arg &&
-    /^(\d{4})?(\/\d{2})?(\/\d{2})?(-)?(\d{4})?(\/\d{2})?(\/\d{2})?$/.test(arg)
-      ? arg.split("-")
-      : [];
-  const [minTodayStr, maxTodayStr] =
-    arg && /^(today)?(-)?(today)?$/i.test(arg) ? arg.split("-") : [];
+  const { blur = 0, grayscale, dateAmericanFormat, minMaxDates } = opts || {};
+  const [minDateD, maxDateD] = getDates(minMaxDates);
 
-  let minDate = minDateStr ? new Date(minDateStr) : undefined;
-  minDate = minTodayStr ? new Date(Date.now()) : minDate;
-
-  let maxDate = maxDateStr ? new Date(maxDateStr) : new Date("2040/12/31");
-  maxDate = maxTodayStr ? new Date(Date.now()) : maxDate;
-
-  const { blur = 0, grayscale, dateAmericanFormat } = opts || {};
+  const minD = new Date(
+    Math.min(
+      ...[maxDate, minDate || minDateD || new Date("1800")].filter((x) =>
+        isValidDate(x)
+      )
+    )
+  );
+  const maxD = new Date(
+    Math.max(
+      ...[maxDate || maxDateD || new Date("2050"), minD].filter((x) =>
+        isValidDate(x)
+      )
+    )
+  );
 
   const guid = random.randomGUID();
   const ip = random.randomIP();
@@ -37,16 +42,16 @@ export const getOptions = (args = "", opts) => {
   const firstName = random.randomName("first");
   const lastName = random.randomName("last");
   const date = random.randomDate({
-    min: minDate,
     american: !!dateAmericanFormat,
-    max: maxDate,
+    min: minD,
+    max: maxD,
   });
   const dateIso = random
     .randomDate({
       string: false,
       american: !!dateAmericanFormat,
-      min: minDate,
-      max: maxDate,
+      min: minD,
+      max: maxD,
     })
     .toISOString();
   const country = random.randomCountry();
@@ -78,8 +83,9 @@ export const getOptions = (args = "", opts) => {
       autocomplete: "date ",
     },
     {
-      title: "Date (MIN-MAX)",
+      title: `Date (MIN-MAX)`,
       subtitle: "(2010-today)",
+      // subtitle: `${Math.max(...[maxDate, minDate, new Date()].filter(x => !!x))}`,
       value: date,
       autocomplete: "date ",
     },
@@ -96,10 +102,19 @@ export const getOptions = (args = "", opts) => {
       value: lettersAndNumbers,
       autocomplete: "letters ",
     },
-    { title: "Lorem Worlds", value: loremWorlds, autocomplete: "lorem " },
-    { title: "Lorem Sentences", value: loremSentences, autocomplete: "lorem " },
     {
-      title: "Lorem Paragraphs",
+      title: `Lorem Worlds (${number || 7})`,
+      // subtitle: `${Math.max(...dates)}`,
+      value: loremWorlds,
+      autocomplete: "lorem ",
+    },
+    {
+      title: `Lorem Sentences (${number || 3})`,
+      value: loremSentences,
+      autocomplete: "lorem ",
+    },
+    {
+      title: `Lorem Paragraphs (${number || 1})`,
       value: loremParagraphs,
       autocomplete: "lorem ",
     },
@@ -133,6 +148,7 @@ if (alfy.alfred.version) {
     blur: alfy.config.get(CONFIG.imageBlur),
     grayscale: !!alfy.config.get(CONFIG.imageGrayscale),
     dateAmericanFormat: !!alfy.config.get(CONFIG.dateAmericanFormat),
+    minMaxDates: alfy.config.get(CONFIG.defaultMinMaxDates),
   };
   alfy.output(getOptions(input, options));
 }

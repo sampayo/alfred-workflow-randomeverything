@@ -1,4 +1,4 @@
-# Random Everything
+# Alfred Workflow Random Everything
 
 An Alfred Workflow that generates random ints, floats, strings, words, etc.
 
@@ -10,7 +10,7 @@ This is inspired by [Random Everything for VS Code.](https://github.com/helixqua
 
 ## Options:
 
-Type "random (option)":
+Type `random [option] [arg]`:
 
 - `address`: A random address (e.g. 1750 Nugku Place)
 - `city`: A random city (e.g. Ejgekad)
@@ -35,3 +35,12 @@ Type "random (option)":
 - `url`: A random url (e.g http://git.ve/poh)
 - `guid`: A random guid (e.g 924719d1-8ba1-5cbc-8513-cc7d3c2031ee)
 - `image` (width-height): A random image from [https://picsum.photos](https://picsum.photos) (e.g https://picsum.photos/seed/ebGjjAe/320/100)
+
+## Configuration:
+
+Type `config-random [option] [arg]`:
+
+- `Image grayscale`: Toggle to set if images are in a grey scale 
+- `Image blur`: A number that adjust the amount of blur on images
+- `Default Dates` (MIN-MAX): the default range of dates, format `YYYY/MM/DD` or `today`
+- `Date American Format` Toggle to set the date is in american format `MM/DD/YYYY`
