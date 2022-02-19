@@ -1,10 +1,16 @@
 import alfy from "alfy";
 import random from "./index.js";
+import constants from "./constants.js";
 
-export const getOptions = (args = "") => {
+const { config: CONFIG } = constants;
+
+const valueToInt = (v) => (v && /^\d+$/.test(v) ? parseInt(v, 10) : undefined);
+const valueToMaxMin = (v) => (v && /^\d+-\d+$/.test(v) ? v : undefined);
+
+export const getOptions = (args = "", opts) => {
   const [input, arg] = args.split(" ");
-  const number = arg && /^\d+$/.test(arg) ? parseInt(arg, 10) : undefined;
-  const randomMinMaxArg = arg && /^\d+-\d+$/.test(arg) ? arg : undefined;
+  const number = valueToInt(args);
+  const randomMinMaxArg = valueToMaxMin(arg);
 
   const [minDateStr, maxDateStr] =
     arg &&
@@ -17,8 +23,10 @@ export const getOptions = (args = "") => {
   let minDate = minDateStr ? new Date(minDateStr) : undefined;
   minDate = minTodayStr ? new Date(Date.now()) : minDate;
 
-  let maxDate = maxDateStr ? new Date(maxDateStr) : new Date("2030/12/31");
+  let maxDate = maxDateStr ? new Date(maxDateStr) : new Date("2040/12/31");
   maxDate = maxTodayStr ? new Date(Date.now()) : maxDate;
+
+  const { blur = 0, grayscale, dateAmericanFormat } = opts || {};
 
   const guid = random.randomGUID();
   const ip = random.randomIP();
@@ -28,9 +36,18 @@ export const getOptions = (args = "") => {
   const name = random.randomName();
   const firstName = random.randomName("first");
   const lastName = random.randomName("last");
-  const date = random.randomDate({ min: minDate, max: maxDate });
+  const date = random.randomDate({
+    min: minDate,
+    american: !!dateAmericanFormat,
+    max: maxDate,
+  });
   const dateIso = random
-    .randomDate({ string: false, min: minDate, max: maxDate })
+    .randomDate({
+      string: false,
+      american: !!dateAmericanFormat,
+      min: minDate,
+      max: maxDate,
+    })
     .toISOString();
   const country = random.randomCountry();
   const city = random.randomCity();
@@ -45,8 +62,8 @@ export const getOptions = (args = "") => {
   const loremSentences = random.lipsumSentences(number);
   const loremParagraphs = random.lipsumParagraphs(number);
   const picsum = random.randomPicsum(randomMinMaxArg, {
-    blur: 0,
-    grayscale: false,
+    blur,
+    grayscale,
   });
 
   const options = [
@@ -111,4 +128,11 @@ export const getOptions = (args = "") => {
 };
 
 const input = alfy.input;
-if (input) alfy.output(getOptions(input));
+if (alfy.alfred.version) {
+  const options = {
+    blur: alfy.config.get(CONFIG.imageBlur),
+    grayscale: !!alfy.config.get(CONFIG.imageGrayscale),
+    dateAmericanFormat: !!alfy.config.get(CONFIG.dateAmericanFormat),
+  };
+  alfy.output(getOptions(input, options));
+}
