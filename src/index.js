@@ -168,7 +168,7 @@ const randomGUID = () => {
   return randomVar;
 };
 
-const lipsumWorlds = (amount = 7) => {
+const lipsumWords = (amount = 7) => {
   const lorem = new LoremIpsum({
     sentencesPerParagraph: {
       max: 8,
@@ -248,7 +248,7 @@ export default {
   randomLetters,
   randomFloatString,
   insertRandomInt,
-  lipsumWorlds,
+  lipsumWords,
   lipsumSentences,
   lipsumParagraphs,
   randomPicsum,
