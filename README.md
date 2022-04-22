@@ -27,7 +27,7 @@ Type `random [option] [arg]`:
 - `lastName`: A random last name (e.g. Fiesoli)
 - `letters` (length): Random letters (e.g. SsvnOZyMsjZxXmHOpax)
 - `lettersAndNumbers` (length): Random letters and numbers (e.g. jvYjV2Kk7D)
-- `loremWorlds` (number): Random lorem ipsum worlds with length (default 7)
+- `loremWords` (number): Random lorem ipsum words with length (default 7)
 - `loremSentences` (number): Random lorem ipsum sentences with length (default 3)
 - `loremParagraphs` (number): Random lorem ipsum paragraphs with length (default 1)
 - `phone`: A random phone
