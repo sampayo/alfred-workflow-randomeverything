@@ -63,7 +63,7 @@ export const getOptions = (args = "", opts) => {
   const letters = random.randomLetters(number);
   const floatString = random.randomFloatString(randomMinMaxArg);
   const randomInt = random.insertRandomInt(randomMinMaxArg || "0-100");
-  const loremWorlds = random.lipsumWorlds(number);
+  const loremWords = random.lipsumWords(number);
   const loremSentences = random.lipsumSentences(number);
   const loremParagraphs = random.lipsumParagraphs(number);
   const picsum = random.randomPicsum(randomMinMaxArg, {
@@ -103,9 +103,9 @@ export const getOptions = (args = "", opts) => {
       autocomplete: "letters ",
     },
     {
-      title: `Lorem Worlds (${number || 7})`,
+      title: `Lorem Words (${number || 7})`,
       // subtitle: `${Math.max(...dates)}`,
-      value: loremWorlds,
+      value: loremWords,
       autocomplete: "lorem ",
     },
     {
